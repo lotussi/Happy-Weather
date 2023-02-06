@@ -45,8 +45,16 @@ function currentWeatherCard(city, weather){
   todayContainer.append(card);
 
 }
+function renderForecastCard(forecast) {
+  // variables for data from api
+  var icon =
+    'https://openweathermap.org/img/w/' + forecast.weather[0].icon + '.png';
+  var iconDescription = forecast.weather[0].description;
+  var tempDg = forecast.main.temp;
+  var humidityTemp = forecast.main.humidity;
+  var windSpeed = forecast.wind.speed;
 
-
+}
 $('#search-form').on('submit', function(event) {
     event.preventDefault();
    const city = $('#search-input').val();
