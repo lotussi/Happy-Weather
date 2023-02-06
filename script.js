@@ -48,12 +48,39 @@ function currentWeatherCard(city, weather){
 function renderForecastCard(forecast) {
   // variables for data from api
   var icon =
-    'https://openweathermap.org/img/w/' + forecast.weather[0].icon + '.png';
-  var iconDescription = forecast.weather[0].description;
-  var tempDg = forecast.main.temp;
-  var humidityTemp = forecast.main.humidity;
-  var windSpeed = forecast.wind.speed;
-
+  'https://openweathermap.org/img/w/' + forecast.weather[0].icon + '.png';
+var iconDescription = forecast.weather[0].description;
+var tempDg = forecast.main.temp;
+var humidityTemp = forecast.main.humidity;
+var windSpeed = forecast.wind.speed;
+// Create elements for a card
+var col = $('<div>');
+var card = $('<div>');
+var cardText = $('<div>');
+var cardTitle = $('<h5>');
+var weatherIcon = $('<img>');
+var temp = $('<p>');
+var wind = $('<p>');
+var humidity = $('<p>');
+col.append(card);
+card.append(cardText);
+cardText.append(cardTitle, weatherIcon, temp, wind, humidity);
+col.attr('class', 'col-md');
+col.addClass('five-day-card');
+card.attr('class', 'card bg-primary h-100 text-white');
+cardText.attr('class', 'card-body p-2');
+cardTitle.attr('class', 'card-title');
+temp.attr('class', 'card-text');
+wind.attr('class', 'card-text');
+humidity.attr('class', 'card-text');
+// Add content to elements
+cardTitle.text(moment(forecast.dt_txt).format('D/M/YYYY'));
+weatherIcon.attr('src', icon);
+weatherIcon.attr('alt', iconDescription);
+temp.text('Temp: ' + tempDg + ' °C');
+wind.text('Wind: ' + windSpeed + ' KPH');
+humidity.text('Humidity: ' + humidityTemp + ' %');
+forecastContainer.append(col);
 }
 $('#search-form').on('submit', function(event) {
     event.preventDefault();
