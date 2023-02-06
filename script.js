@@ -5,7 +5,7 @@ var todayContainer = $('#today');
 var forecastContainer = $('#forecast');
 var searchHistoryContainer = $('#history');
 var searchBtn =$("#search-button")
-
+// add function to get city weather and date
 function currentWeatherCard(city, weather){
   var day = moment().format("D/M/YYYY");
   var tempDg = weather.main.temp;
@@ -82,9 +82,34 @@ wind.text('Wind: ' + windSpeed + ' KPH');
 humidity.text('Humidity: ' + humidityTemp + ' %');
 forecastContainer.append(col);
 }
+// setting a function to get 5 days forcast
+function renderForecast(dailyForecast) {
+  var headingCol = $('<div>');
+  var heading = $('<h4>');
+  headingCol.attr('class', 'col-12');
+  heading.text('5-Day Forecast:');
+  headingCol.append(heading);
+  forecastContainer.html('');
+  forecastContainer.append(headingCol);
+  function noonTime(forecast) {
+    return forecast.dt_txt.includes('12');
+  }
+  var futureCast = dailyForecast.filter(noonTime);
+  console.log(futureCast);
+  for (var i = 0; i < futureCast.length; i++) {
+    renderForecastCard(futureCast[i]);
+  }
+}
+function renderItems(city, data) {
+  console.log(data)
+  console.log(data.list[1])
+  currentWeatherCard(city, data.list[0]);
+  renderForecast(data.list);
+}
+
 $('#search-form').on('submit', function(event) {
     event.preventDefault();
-   const city = $('#search-input').val();
+   var city = $('#search-input').val();
    console.log(city)
    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=da7f4aab324ce68fae9d4a040baf0bf0" 
    
@@ -92,6 +117,7 @@ $.ajax({
     url: queryURL,
     method: 'Get'
 }).then(function(data){
-  console.log(data)
+renderItems(city, data)
+console.log(data)
 })
 });

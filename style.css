@@ -1,0 +1,21 @@
+.container {
+    width: 80%;
+    margin: 0 auto;
+    justify-content: center;
+  }
+  .day-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    background-color: blue;
+  }
+  .day {
+    width: 20%;
+    text-align: center;
+  }
+  .day h2 {
+    margin: 0;
+  }
+  .day p {
+    margin: 0;
+  }
